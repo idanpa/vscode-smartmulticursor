@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   viewBox="0 0 135.46666 135.46667"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="icon.svg"
+   inkscape:export-filename="C:\Users\idank\code\vscode-smartmulticursor\icon.png"
+   inkscape:export-xdpi="96.000008"
+   inkscape:export-ydpi="96.000008">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.1953641"
+     inkscape:cx="262.5908"
+     inkscape:cy="224.79289"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1600"
+     inkscape:window-height="877"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     units="px" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-161.53332)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="3.1283026"
+       y="225.71396"
+       id="text817"><tspan
+         sodipodi:role="line"
+         id="tspan815"
+         x="3.1283026"
+         y="225.71396"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.40555573px;line-height:1.25;font-family:consolas;-inkscape-font-specification:consolas;stroke-width:0.26458332"><tspan
+   style="fill:#0000cc;fill-opacity:1"
+   id="tspan821">Smart</tspan> = foo;</tspan><tspan
+         sodipodi:role="line"
+         x="3.1283026"
+         y="242.4709"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.40555573px;line-height:1.25;font-family:consolas;-inkscape-font-specification:consolas;stroke-width:0.26458332"
+         id="tspan819"><tspan
+   style="fill:#0000cc;fill-opacity:1"
+   id="tspan849">MultiCursor</tspan> = bar;</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke-width:0.25969827"
+       id="rect851"
+       width="0.44268239"
+       height="17.485954"
+       x="61.225025"
+       y="211.3961" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke-width:0.25969827"
+       id="rect851-6"
+       width="0.44268239"
+       height="17.485954"
+       x="105.49327"
+       y="229.26273" />
+  </g>
+</svg>
