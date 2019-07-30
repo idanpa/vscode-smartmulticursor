@@ -12,4 +12,7 @@ Tip: use <kbd>Ctrl</kbd>+<kbd>u</kbd> to undo last cursor
 ![example1](example1.gif "Example 1")
 
 
+![example2](example2.gif "Example 2")
+
+
 
