@@ -19,8 +19,10 @@ function insertCursorAbove(textEditor: vscode.TextEditor, edit: vscode.TextEdito
 function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 	let sortedSelections = textEditor.selections.sort((a, b) => (a.end.line - b.end.line));
 	let lastSel = sortedSelections[below ? sortedSelections.length - 1 : 0];
+	let prevLastSel = (sortedSelections.length > 1) ? sortedSelections[below ? sortedSelections.length - 2 : 1] : null;
 	//TODO: maybe the sorted would help animation look better when inserting cursor above?
 	let lastLineText = textEditor.document.lineAt(lastSel.end.line).text;
+	let prevLastLineText = prevLastSel ? textEditor.document.lineAt(prevLastSel.end.line).text : null;
 	let nextLine = lastSel.end.line + (below ? 1 : -1);
 	if (nextLine >= textEditor.document.lineCount) {
 		return;
@@ -30,27 +32,25 @@ function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 
 	let ml = matchLine(lastLineText, lastSel.end.character);
 
-	if (ml.fullMatch) {
+	// if there's a match and it is consistent with previous lines:
+	if (ml.match &&	matchAllSelections(sortedSelections, textEditor.document, ml.match, ml.cursorRelative2Match)) {
 		// find the occurrance index in last line:
 		let occurrenceIndex = 0;
-		let i = lastLineText.indexOf(ml.fullMatch);
+		let i = lastLineText.indexOf(ml.match);
 		while (i >= 0 && i < ml.occurrancePosition) {
-			i = lastLineText.indexOf(ml.fullMatch, i + 1);
+			i = lastLineText.indexOf(ml.match, i + 1);
 			occurrenceIndex++;
 		}
-		// TODO: if we have multiple selections, need to make sure the previous selection also have the same match
-		// (we don't want smart-cursor in the middle of regular cursors)
 		// find the position of the appropriate occurrance in next line:
-		nextCharacter = nextLineText.indexOf(ml.fullMatch);
+		nextCharacter = nextLineText.indexOf(ml.match);
 		while (occurrenceIndex > 0 && nextCharacter >= 0) {
-			nextCharacter = nextLineText.indexOf(ml.fullMatch, nextCharacter + 1);
+			nextCharacter = nextLineText.indexOf(ml.match, nextCharacter + 1);
 			occurrenceIndex--;
 		}
 	}
 	if (nextCharacter >= 0) {
 		nextCharacter += ml.cursorRelative2Match;
-	} else {
-		// fallback to regular behavior:
+	} else { // fallback to regular behavior:
 		nextCharacter = CursorColumns.columnFromVisibleColumn(nextLineText,
 			CursorColumns.visibleColumnFromColumn(lastLineText, lastSel.end.character,
 				Number(textEditor.options.tabSize)),
@@ -93,8 +93,12 @@ function matchLine(line: string, cursor: number) {
 	}
 
 	return {
-		fullMatch: match ? match[2] : null,
+		match: match ? match[2] : null,
 		occurrancePosition: occurrancePosition,
 		cursorRelative2Match: cursorRelative2Match,
 	};
+}
+
+function matchAllSelections(selections: vscode.Selection[], doc: vscode.TextDocument, match: string, curserRelative2Match: number) {
+	return selections.every((s) => match === doc.lineAt(s.end.line).text[s.end.character - curserRelative2Match]);
 }
