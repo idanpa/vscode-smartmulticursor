@@ -1,6 +1,6 @@
 # Smart Multi-cursor
 Context aware multi-cursor.  
-Instead of column based multi-cursor, next cursor would appear on the appropriate position in next line, if no pattern was found falling back to regular column based multi-cursor.  
+Inserting cursor in the appropriate position on next line, if no pattern was found falling back to regular column based multi-cursor.  
 The pattern search is based on:  
 " ' = : , ; . ( ) [ ] < > \t
 
@@ -20,5 +20,8 @@ Tip: use <kbd>Ctrl</kbd>+<kbd>u</kbd> to undo last cursor.
 
 ![example2](example2.gif "Example 2")
 
+## Issues and suggestions
+Please file an [issue](https://github.com/idanpa/vscode-smartmulticursor/issues).
 
+Contributions are welcomed.
 

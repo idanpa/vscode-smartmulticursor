@@ -9,6 +9,9 @@
 		"type": "git",
 		"url": "https://github.com/idanpa/vscode-smartmulticursor"
 	},
+	"bugs": {
+        "url": "https://github.com/idanpa/vscode-smartmulticursor/issues"
+    },
 	"icon": "icon.png",
 	"engines": {
 		"vscode": "^1.36.0"
