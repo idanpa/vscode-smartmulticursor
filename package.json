@@ -43,12 +43,14 @@
 			{
 				"command": "smartmulticursor.insertCursorBelow",
 				"key": "ctrl+alt+down",
+				"mac": "cmd+alt+down",
 				"linux": "shift+alt+down",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "smartmulticursor.insertCursorAbove",
 				"key": "ctrl+alt+up",
+				"mac": "cmd+alt+up",
 				"linux": "shift+alt+up",
 				"when": "editorTextFocus"
 			}
