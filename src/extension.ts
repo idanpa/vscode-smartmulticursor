@@ -33,7 +33,7 @@ function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 	let ml = matchLine(lastLineText, lastSel.end.character);
 
 	// if there's a match and it is consistent with previous lines:
-	if (ml.match &&	matchAllSelections(sortedSelections, textEditor.document, ml.match, ml.cursorRelative2Match)) {
+	if (ml.match && matchAllSelections(sortedSelections, textEditor.document, ml.match, ml.cursorRelative2Match)) {
 		// find the occurrance index in last line:
 		let occurrenceIndex = 0;
 		let i = lastLineText.indexOf(ml.match);
@@ -65,16 +65,18 @@ function matchLine(line: string, cursor: number) {
 	let head = line.slice(0, cursor);
 	let tail = line.slice(cursor);
 
-	// TODO: list of trigger characters and build the regex from it. later would be easier to configure
-	// TODO: add | > < . [] *
-	const reHead = /( ?("|'|=|:|,|;|\(|\)|\t) ?)$/;
-	const reTail = /^( ?("|'|=|:|,|;|\(|\)|\t) ?)/;
+	const triggers = '"\'=:,;.()[]<>|\t';
+	const reGroup = '(\\s?(' + buildOptionRegExp(triggers) + ')\\s?)';
+	// const reGroup = '( ?("|\'|=|:|,|;|\\.|\\*|\\(|\\)|\\[|\\]|<|>|\\||\\t) ?)';
+	const reHead = RegExp(reGroup + '$');
+	const reTail = RegExp('^' + reGroup);
 
 	let occurrancePosition = 0;
 	let cursorRelative2Match = 0;
 	let match = reHead.exec(head);
 	if (match) {
-		if (match[0].endsWith(' ')) {
+		// if (match[0].length > 1 && /\s$/.test(match[0])) { // ends with whitespace
+		if (match[0][match[0].length - 1] !== match[2]) { // ends with whitespace
 			cursorRelative2Match = 2;
 		} else {
 			cursorRelative2Match = 1;
@@ -83,7 +85,8 @@ function matchLine(line: string, cursor: number) {
 	} else {
 		match = reTail.exec(tail);
 		if (match) {
-			if (match[0].startsWith(' ')) {
+			// if (match[0].length > 1 && /^\s/.test(match[0])) { // starts with whitespace
+			if (match[0][0] !== match[2]) { // starts with whitespace
 				cursorRelative2Match = -1;
 			} else {
 				cursorRelative2Match = 0;
@@ -101,4 +104,10 @@ function matchLine(line: string, cursor: number) {
 
 function matchAllSelections(selections: vscode.Selection[], doc: vscode.TextDocument, match: string, curserRelative2Match: number) {
 	return selections.every((s) => match === doc.lineAt(s.end.line).text[s.end.character - curserRelative2Match]);
+}
+
+function buildOptionRegExp(triggers: string) {
+	return triggers.split('').map(
+		(s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) // $& means the whole matched string
+		.reduce((a, b) => a + '|' + b);
 }
