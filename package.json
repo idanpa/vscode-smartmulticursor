@@ -1,8 +1,8 @@
 {
 	"name": "smartmulticursor",
 	"displayName": "Smart Multi-cursor",
-	"description": "Smart Multi-cursor",
-	"version": "0.0.1",
+	"description": "Context enhanced multi-cursor",
+	"version": "0.0.2",
 	"publisher": "idanp",
 	"license": "MIT",
 	"repository": {
