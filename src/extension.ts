@@ -52,9 +52,10 @@ function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 		nextCharacter += ml.cursorRelative2Match;
 	} else { // fallback to regular behavior:
 		nextCharacter = CursorColumns.columnFromVisibleColumn(nextLineText,
-			CursorColumns.visibleColumnFromColumn(lastLineText, lastSel.end.character,
+			CursorColumns.visibleColumnFromColumn(lastLineText, lastSel.end.character + 1,
 				Number(textEditor.options.tabSize)),
-			Number(textEditor.options.tabSize));
+			Number(textEditor.options.tabSize)) - 1;
+		// FIXME: we 'forget' the column after empty lines
 	}
 	textEditor.selections.push(new vscode.Selection(nextLine, nextCharacter, nextLine, nextCharacter));
 	// Trigger an update:
