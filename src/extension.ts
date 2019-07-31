@@ -20,7 +20,6 @@ function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 	let sortedSelections = textEditor.selections.sort((a, b) => (a.end.line - b.end.line));
 	let lastSel = sortedSelections[below ? sortedSelections.length - 1 : 0];
 	let prevLastSel = (sortedSelections.length > 1) ? sortedSelections[below ? sortedSelections.length - 2 : 1] : null;
-	//TODO: maybe the sorted would help animation look better when inserting cursor above?
 	let lastLineText = textEditor.document.lineAt(lastSel.end.line).text;
 	let prevLastLineText = prevLastSel ? textEditor.document.lineAt(prevLastSel.end.line).text : null;
 	let nextLine = lastSel.end.line + (below ? 1 : -1);
@@ -51,11 +50,12 @@ function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 	if (nextCharacter >= 0) {
 		nextCharacter += ml.cursorRelative2Match;
 	} else { // fallback to regular behavior:
+		let firstSel = sortedSelections[0];
+		let firstLineText = textEditor.document.lineAt(firstSel.end.line).text;
 		nextCharacter = CursorColumns.columnFromVisibleColumn(nextLineText,
-			CursorColumns.visibleColumnFromColumn(lastLineText, lastSel.end.character + 1,
+			CursorColumns.visibleColumnFromColumn(firstLineText, firstSel.end.character + 1,
 				Number(textEditor.options.tabSize)),
 			Number(textEditor.options.tabSize)) - 1;
-		// FIXME: we 'forget' the column after empty lines
 	}
 	textEditor.selections.push(new vscode.Selection(nextLine, nextCharacter, nextLine, nextCharacter));
 	// Trigger an update:
