@@ -2,7 +2,7 @@
 	"name": "smartmulticursor",
 	"displayName": "Smart Multi-cursor",
 	"description": "Context enhanced multi-cursor",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"publisher": "idanp",
 	"license": "MIT",
 	"repository": {
