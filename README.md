@@ -9,7 +9,7 @@ This extension overrides the default insertCursorBelow/Above keybindings:
 > Linux: <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>Down/Up</kbd>  
 > Mac: <kbd>⌘</kbd>+<kbd>⌥</kbd>+<kbd>Down/Up</kbd>  
 
-Tip: use <kbd>Ctrl</kbd>+<kbd>u</kbd> to undo last cursor.
+Tip: use <kbd>Ctrl</kbd>+<kbd>u</kbd> to undo last cursor (Mac: <kbd>⌘</kbd>+<kbd>u</kbd>).
 
 
 ![example1](example1.gif "Example 1")
