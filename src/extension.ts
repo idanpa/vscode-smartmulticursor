@@ -66,9 +66,8 @@ function matchLine(line: string, cursor: number) {
 	let head = line.slice(0, cursor);
 	let tail = line.slice(cursor);
 
-	const triggers = '"\'=:,;.()[]<>|\t';
+	const triggers = '"\'=:,;.(){}[]<>|\t';
 	const reGroup = '(\\s?(' + buildOptionRegExp(triggers) + ')\\s?)';
-	// const reGroup = '( ?("|\'|=|:|,|;|\\.|\\*|\\(|\\)|\\[|\\]|<|>|\\||\\t) ?)';
 	const reHead = RegExp(reGroup + '$');
 	const reTail = RegExp('^' + reGroup);
 

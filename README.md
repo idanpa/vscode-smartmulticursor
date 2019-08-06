@@ -2,7 +2,7 @@
 Context aware multi-cursor.  
 Inserting cursor in the appropriate position on next line, if no pattern was found falling back to regular column based multi-cursor.  
 The pattern search is based on:  
-" ' = : , ; . ( ) [ ] < > \t
+" ' = : , ; . ( ) { } [ ] < > Tab
 
 This extension overrides the default insertCursorBelow/Above keybindings:  
 > Windows: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Down/Up</kbd>  
