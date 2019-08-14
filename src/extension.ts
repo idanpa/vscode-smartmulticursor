@@ -19,9 +19,7 @@ function insertCursorAbove(textEditor: vscode.TextEditor, edit: vscode.TextEdito
 function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 	let sortedSelections = textEditor.selections.sort((a, b) => (a.end.line - b.end.line));
 	let lastSel = sortedSelections[below ? sortedSelections.length - 1 : 0];
-	let prevLastSel = (sortedSelections.length > 1) ? sortedSelections[below ? sortedSelections.length - 2 : 1] : null;
 	let lastLineText = textEditor.document.lineAt(lastSel.end.line).text;
-	let prevLastLineText = prevLastSel ? textEditor.document.lineAt(prevLastSel.end.line).text : null;
 	let nextLine = lastSel.end.line + (below ? 1 : -1);
 	if (nextLine >= textEditor.document.lineCount) {
 		return;
