@@ -48,7 +48,7 @@ function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 	if (nextCharacter >= 0) {
 		nextCharacter += ml.cursorRelative2Match;
 	} else { // fallback to regular behavior:
-		let firstSel = sortedSelections[0];
+		let firstSel = sortedSelections[below ? 0 : sortedSelections.length - 1];
 		let firstLineText = textEditor.document.lineAt(firstSel.end.line).text;
 		nextCharacter = CursorColumns.columnFromVisibleColumn(nextLineText,
 			CursorColumns.visibleColumnFromColumn(firstLineText, firstSel.end.character + 1,
