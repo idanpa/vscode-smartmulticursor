@@ -47,6 +47,10 @@ function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 	}
 	if (nextCharacter >= 0) {
 		nextCharacter += ml.cursorRelative2Match;
+	// } else if ((lastLineText.length > 0) && // if cursor on the end of none empty lines
+	// 	(lastLineText.length === lastSel.end.character) &&
+	// 	allSelectionsOnLineEnd(sortedSelections, textEditor.document)) {
+	// 	nextCharacter = nextLineText.length;
 	} else { // fallback to regular behavior:
 		let firstSel = sortedSelections[below ? 0 : sortedSelections.length - 1];
 		let firstLineText = textEditor.document.lineAt(firstSel.end.line).text;
@@ -100,6 +104,10 @@ function matchLine(line: string, cursor: number) {
 function allSelectionsMatch(selections: vscode.Selection[], doc: vscode.TextDocument, match: string, curserRelative2Match: number) {
 	return selections.every((s) => match === doc.lineAt(s.end.line).text[s.end.character - curserRelative2Match]);
 }
+
+// function allSelectionsOnLineEnd(selections: vscode.Selection[], doc: vscode.TextDocument) {
+// 	return selections.every((s) => doc.lineAt(s.end.line).text.length === s.end.character);
+// }
 
 function buildOptionRegExp(triggers: string) {
 	return triggers.split('').map(
