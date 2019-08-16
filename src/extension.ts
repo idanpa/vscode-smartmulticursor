@@ -30,7 +30,7 @@ function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 	let ml = matchLine(lastLineText, lastSel.end.character);
 
 	// if there's a match and it is consistent with previous lines:
-	if (ml.match && matchAllSelections(sortedSelections, textEditor.document, ml.match, ml.cursorRelative2Match)) {
+	if (ml.match && allSelectionsMatch(sortedSelections, textEditor.document, ml.match, ml.cursorRelative2Match)) {
 		// find the occurrance index in last line:
 		let occurrenceIndex = 0;
 		let i = lastLineText.indexOf(ml.match);
@@ -69,7 +69,6 @@ function matchLine(line: string, cursor: number) {
 	const reHead = RegExp(reGroup + '$');
 	const reTail = RegExp('^' + reGroup);
 
-	let occurrancePosition = 0;
 	let cursorRelative2Match = 0;
 	let match = reHead.exec(head);
 	if (match) {
@@ -79,7 +78,6 @@ function matchLine(line: string, cursor: number) {
 		} else {
 			cursorRelative2Match = 1;
 		}
-		occurrancePosition = cursor - cursorRelative2Match;
 	} else {
 		match = reTail.exec(tail);
 		if (match) {
@@ -89,18 +87,17 @@ function matchLine(line: string, cursor: number) {
 			} else {
 				cursorRelative2Match = 0;
 			}
-			occurrancePosition = cursor - cursorRelative2Match;
 		}
 	}
 
 	return {
 		match: match ? match[2] : null,
-		occurrancePosition: occurrancePosition,
+		occurrancePosition: cursor - cursorRelative2Match,
 		cursorRelative2Match: cursorRelative2Match,
 	};
 }
 
-function matchAllSelections(selections: vscode.Selection[], doc: vscode.TextDocument, match: string, curserRelative2Match: number) {
+function allSelectionsMatch(selections: vscode.Selection[], doc: vscode.TextDocument, match: string, curserRelative2Match: number) {
 	return selections.every((s) => match === doc.lineAt(s.end.line).text[s.end.character - curserRelative2Match]);
 }
 
