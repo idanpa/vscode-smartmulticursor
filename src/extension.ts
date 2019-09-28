@@ -33,8 +33,10 @@ function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 	if (ml.match && allSelectionsMatch(sortedSelections, textEditor.document, ml.match, ml.cursorRelative2Match)) {
 		// find the occurrance index in last line:
 		let occurrenceIndex = 0;
+		let	occurrancePosition = lastSel.end.character - ml.cursorRelative2Match;
 		let i = lastLineText.indexOf(ml.match);
-		while (i >= 0 && i < ml.occurrancePosition) {
+
+		while (i >= 0 && i < occurrancePosition) {
 			i = lastLineText.indexOf(ml.match, i + 1);
 			occurrenceIndex++;
 		}
@@ -74,29 +76,37 @@ function matchLine(line: string, cursor: number) {
 	const reTail = RegExp('^' + reGroup);
 
 	let cursorRelative2Match = 0;
-	let match = reHead.exec(head);
-	if (match) {
-		// if (match[0].length > 1 && /\s$/.test(match[0])) { // ends with whitespace
-		if (match[0][match[0].length - 1] !== match[2]) { // ends with whitespace
+	let matchHead = reHead.exec(head);
+	let	matchTail = reTail.exec(tail);
+	let match = null;
+
+	if (matchHead && matchTail) {
+		// we prefer the one without whitespace:
+		if (matchTail[0][0].trim() === '') {
+			matchTail = null;
+		} else {
+			matchHead = null;
+		}
+	}
+
+	if (matchHead) {
+		match = matchHead[2];
+		if (matchHead[0][matchHead[0].length - 1].trim() === '') { // ends with whitespace
 			cursorRelative2Match = 2;
 		} else {
 			cursorRelative2Match = 1;
 		}
-	} else {
-		match = reTail.exec(tail);
-		if (match) {
-			// if (match[0].length > 1 && /^\s/.test(match[0])) { // starts with whitespace
-			if (match[0][0] !== match[2]) { // starts with whitespace
-				cursorRelative2Match = -1;
-			} else {
-				cursorRelative2Match = 0;
-			}
+	} else if (matchTail) {
+		match = matchTail[2];
+		if (matchTail[0][0].trim() === '') { // starts with whitespace
+			cursorRelative2Match = -1;
+		} else {
+			cursorRelative2Match = 0;
 		}
 	}
 
 	return {
-		match: match ? match[2] : null,
-		occurrancePosition: cursor - cursorRelative2Match,
+		match: match,
 		cursorRelative2Match: cursorRelative2Match,
 	};
 }
@@ -109,6 +119,7 @@ function allSelectionsMatch(selections: vscode.Selection[], doc: vscode.TextDocu
 // 	return selections.every((s) => doc.lineAt(s.end.line).text.length === s.end.character);
 // }
 
+// Escapes all characters need to be escaped
 function buildOptionRegExp(triggers: string) {
 	return triggers.split('').map(
 		(s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) // $& means the whole matched string
