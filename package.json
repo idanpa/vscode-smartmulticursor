@@ -10,8 +10,8 @@
 		"url": "https://github.com/idanpa/vscode-smartmulticursor"
 	},
 	"bugs": {
-        "url": "https://github.com/idanpa/vscode-smartmulticursor/issues"
-    },
+		"url": "https://github.com/idanpa/vscode-smartmulticursor/issues"
+	},
 	"icon": "icon.png",
 	"engines": {
 		"vscode": "^1.36.0"
@@ -37,6 +37,14 @@
 			{
 				"command": "smartmulticursor.insertCursorAbove",
 				"title": "Insert smart cursor above"
+			},
+			{
+				"command": "smartmulticursor.lastCursorLeft",
+				"title": "Move last inserted cursor left"
+			},
+			{
+				"command": "smartmulticursor.lastCursorRight",
+				"title": "Move last inserted cursor right"
 			}
 		],
 		"keybindings": [
@@ -52,6 +60,20 @@
 				"key": "ctrl+alt+up",
 				"mac": "cmd+alt+up",
 				"linux": "shift+alt+up",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "smartmulticursor.lastCursorLeft",
+				"key": "ctrl+alt+left",
+				"mac": "cmd+alt+left",
+				"linux": "shift+alt+left",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "smartmulticursor.lastCursorRight",
+				"key": "ctrl+alt+right",
+				"mac": "cmd+alt+right",
+				"linux": "shift+alt+right",
 				"when": "editorTextFocus"
 			}
 		]
