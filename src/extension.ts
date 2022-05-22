@@ -4,6 +4,8 @@ import { CursorColumns } from './cursorCommon';
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerTextEditorCommand('smartmulticursor.insertCursorBelow', insertCursorBelow));
 	context.subscriptions.push(vscode.commands.registerTextEditorCommand('smartmulticursor.insertCursorAbove', insertCursorAbove));
+	context.subscriptions.push(vscode.commands.registerTextEditorCommand('smartmulticursor.lastCursorLeft',    lastCursorLeft));
+	context.subscriptions.push(vscode.commands.registerTextEditorCommand('smartmulticursor.lastCursorRight',   lastCursorRight));
 }
 
 export function deactivate() { }
@@ -14,6 +16,37 @@ function insertCursorBelow(textEditor: vscode.TextEditor, edit: vscode.TextEdito
 
 function insertCursorAbove(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
 	insertCursor(textEditor, false);
+}
+
+function lastCursorLeft(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
+	let lastSel = textEditor.selections.pop();
+	if (! lastSel)
+		return;
+	let lpos = lastSel.start.character - 1;
+	let rpos = lastSel.end.character - 1;
+	if (lpos < 0)
+		lpos = 0;
+	if (rpos < 0)
+		rpos = 0;
+	let line = lastSel.start.line;
+	textEditor.selections.push(new vscode.Selection(line, lpos, line, rpos));
+	textEditor.selections = textEditor.selections; // Trigger update
+}
+
+function lastCursorRight(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
+	let lastSel = textEditor.selections.pop();
+	if (! lastSel)
+		return;
+	let lpos = lastSel.start.character + 1;
+	let rpos = lastSel.end.character + 1;
+	let mpos = textEditor.document.lineAt(lastSel.start.line).text.length;
+	if (lpos > mpos)
+		lpos = mpos;
+	if (rpos > mpos)
+		rpos = mpos;
+	let line = lastSel.start.line;
+	textEditor.selections.push(new vscode.Selection(line, lpos, line, rpos));
+	textEditor.selections = textEditor.selections; // Trigger update
 }
 
 function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
