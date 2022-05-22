@@ -2,7 +2,7 @@
 	"name": "smartmulticursor",
 	"displayName": "Smart Multi-cursor",
 	"description": "Context enhanced multi-cursor",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"publisher": "idanp",
 	"license": "MIT",
 	"repository": {
@@ -10,11 +10,11 @@
 		"url": "https://github.com/idanpa/vscode-smartmulticursor"
 	},
 	"bugs": {
-        "url": "https://github.com/idanpa/vscode-smartmulticursor/issues"
-    },
+		"url": "https://github.com/idanpa/vscode-smartmulticursor/issues"
+	},
 	"icon": "icon.png",
 	"engines": {
-		"vscode": "^1.36.0"
+		"vscode": "^1.66.0"
 	},
 	"categories": [
 		"Other"
@@ -67,13 +67,13 @@
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
-		"@types/mocha": "^5.2.6",
-		"@types/node": "^10.12.21",
-		"@types/vscode": "^1.36.0",
+		"@types/mocha": "^8.2.2",
+		"@types/node": "^12.12.0",
+		"@types/vscode": "^1.66.0",
 		"glob": "^7.1.4",
-		"mocha": "^6.1.4",
-		"typescript": "^3.3.1",
-		"tslint": "^5.12.1",
+		"mocha": "^10.0.0",
+		"tslint": "^5.20.1",
+		"typescript": "^4.6.3",
 		"vscode-test": "^1.0.2"
 	}
 }

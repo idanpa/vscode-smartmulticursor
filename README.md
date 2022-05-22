@@ -11,14 +11,8 @@ This extension overrides the default insertCursorBelow/Above keybindings:
 
 Tip: use <kbd>Ctrl</kbd>+<kbd>u</kbd> to undo last cursor (Mac: <kbd>⌘</kbd>+<kbd>u</kbd>).
 
-
 ![example1](example1.gif "Example 1")
 
-
-![example3](example3.gif "Example 3")
-
-
-![example2](example2.gif "Example 2")
 
 ## Issues and suggestions
 Please file an [issue](https://github.com/idanpa/vscode-smartmulticursor/issues).

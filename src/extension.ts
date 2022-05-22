@@ -17,7 +17,7 @@ function insertCursorAbove(textEditor: vscode.TextEditor, edit: vscode.TextEdito
 }
 
 function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
-	let sortedSelections = textEditor.selections.sort((a, b) => (a.end.line - b.end.line));
+	let sortedSelections = textEditor.selections.slice().sort((a, b) => (a.end.line - b.end.line));
 	let lastSel = sortedSelections[below ? sortedSelections.length - 1 : 0];
 	let lastLineText = textEditor.document.lineAt(lastSel.end.line).text;
 	let nextLine = lastSel.end.line + (below ? 1 : -1);
@@ -61,9 +61,7 @@ function insertCursor(textEditor: vscode.TextEditor, below: boolean) {
 				Number(textEditor.options.tabSize)),
 			Number(textEditor.options.tabSize)) - 1;
 	}
-	textEditor.selections.push(new vscode.Selection(nextLine, nextCharacter, nextLine, nextCharacter));
-	// Trigger an update:
-	textEditor.selections = textEditor.selections;
+	textEditor.selections = [...textEditor.selections, new vscode.Selection(nextLine, nextCharacter, nextLine, nextCharacter)]
 }
 
 function matchLine(line: string, cursor: number) {
