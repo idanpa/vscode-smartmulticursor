@@ -37,6 +37,14 @@
 			{
 				"command": "smartmulticursor.insertCursorAbove",
 				"title": "Insert smart cursor above"
+			},
+			{
+				"command": "smartmulticursor.lastCursorLeft",
+				"title": "Move last inserted cursor left"
+			},
+			{
+				"command": "smartmulticursor.lastCursorRight",
+				"title": "Move last inserted cursor right"
 			}
 		],
 		"keybindings": [
